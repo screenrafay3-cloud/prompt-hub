@@ -703,3 +703,143 @@ input:checked + .slider:before {
   gap: 0.75rem;
   margin-top: 2rem;
 }
+
+/* ==============================================================================
+   LIGHT THEME OVERRIDES (ADMIN)
+   ============================================================================== */
+[data-theme="light"] {
+  --admin-bg: #f8fafc;
+  --admin-surface: #ffffff;
+  --admin-surface-card: #ffffff;
+  --admin-border: rgba(15, 23, 42, 0.08);
+  --admin-border-focus: rgba(147, 51, 234, 0.4);
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --text-dim: #94a3b8;
+}
+
+[data-theme="light"] body {
+  background-color: #f8fafc;
+  color: #0f172a;
+  background-image: radial-gradient(at 0% 0%, rgba(147, 51, 234, 0.04) 0px, transparent 50%),
+                    radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.04) 0px, transparent 50%);
+}
+
+[data-theme="light"] .login-card {
+  background: #ffffff;
+  border-color: rgba(15, 23, 42, 0.1);
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.1);
+}
+
+[data-theme="light"] .login-title {
+  color: #0f172a;
+}
+
+[data-theme="light"] .login-helper {
+  background: #f1f5f9;
+  border-color: rgba(15, 23, 42, 0.08);
+  color: #475569;
+}
+
+[data-theme="light"] .form-label {
+  color: #334155;
+}
+
+[data-theme="light"] .form-input,
+[data-theme="light"] .form-textarea,
+[data-theme="light"] .form-select {
+  background: #f8fafc;
+  border-color: rgba(15, 23, 42, 0.12);
+  color: #0f172a;
+}
+
+[data-theme="light"] .form-input:focus,
+[data-theme="light"] .form-textarea:focus,
+[data-theme="light"] .form-select:focus {
+  background: #ffffff;
+  border-color: var(--accent-purple);
+  box-shadow: 0 0 0 3px rgba(147, 51, 234, 0.15);
+}
+
+[data-theme="light"] .admin-header {
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom-color: rgba(15, 23, 42, 0.08);
+}
+
+[data-theme="light"] .admin-logo {
+  color: #0f172a;
+}
+
+[data-theme="light"] .stat-card {
+  background: #ffffff;
+  border-color: rgba(15, 23, 42, 0.08);
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+}
+
+[data-theme="light"] .stat-card-number {
+  color: #0f172a;
+}
+
+[data-theme="light"] .toolbar-search input {
+  background: #ffffff;
+  border-color: rgba(15, 23, 42, 0.12);
+  color: #0f172a;
+}
+
+[data-theme="light"] .table-wrapper {
+  background: #ffffff;
+  border-color: rgba(15, 23, 42, 0.08);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+[data-theme="light"] .prompts-table th {
+  background: #f8fafc;
+  color: #475569;
+  border-bottom-color: rgba(15, 23, 42, 0.08);
+}
+
+[data-theme="light"] .prompts-table td {
+  border-bottom-color: rgba(15, 23, 42, 0.05);
+  color: #334155;
+}
+
+[data-theme="light"] .table-title {
+  color: #0f172a;
+}
+
+[data-theme="light"] .table-cat-badge {
+  background: #f1f5f9;
+  color: #334155;
+}
+
+[data-theme="light"] .btn-action-icon {
+  background: #f1f5f9;
+  border-color: rgba(15, 23, 42, 0.1);
+  color: #64748b;
+}
+
+[data-theme="light"] .btn-action-icon:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+[data-theme="light"] .upload-dropzone {
+  border-color: rgba(15, 23, 42, 0.15);
+  background: #f8fafc;
+}
+
+[data-theme="light"] .upload-dropzone:hover {
+  background: rgba(147, 51, 234, 0.05);
+}
+
+[data-theme="light"] .admin-modal-card {
+  background: #ffffff;
+  border-color: rgba(15, 23, 42, 0.1);
+  box-shadow: 0 25px 60px rgba(15, 23, 42, 0.2);
+}
+
+[data-theme="light"] .toggle-switch-container {
+  background: #f8fafc;
+  border-color: rgba(15, 23, 42, 0.08);
+}
+

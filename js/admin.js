@@ -97,6 +97,7 @@
   // ==============================================================================
 
   async function initAdmin() {
+    initTheme();
     setupEventListeners();
 
     const db = getDB();
@@ -683,6 +684,32 @@
         if (toast.parentNode) toast.parentNode.removeChild(toast);
       }, 300);
     }, 3500);
+  }
+
+  function initTheme() {
+    const savedTheme = localStorage.getItem('prompthub_theme') || 'light';
+    setTheme(savedTheme);
+
+    const toggleBtn = document.getElementById('btnThemeToggle');
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+        const next = current === 'light' ? 'dark' : 'light';
+        setTheme(next);
+        showToast(`Switched to ${next.toUpperCase()} mode`, 'info');
+      });
+    }
+  }
+
+  function setTheme(theme) {
+    if (theme === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
+    try {
+      localStorage.setItem('prompthub_theme', theme);
+    } catch (e) {}
   }
 
   function escapeHtml(str) {
