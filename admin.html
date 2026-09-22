@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard — PromptHub</title>
+  <title>Admin Dashboard — PromptBazar</title>
   <!-- Strictly hide admin panel from search engines -->
   <meta name="robots" content="noindex, nofollow, noarchive">
 
@@ -33,7 +33,7 @@
             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
           </svg>
         </div>
-        <h1 class="login-title">PromptHub Admin</h1>
+        <h1 class="login-title">PromptBazar Admin</h1>
         <p class="login-subtitle">Sign in to manage the master prompt library</p>
       </div>
 
@@ -78,12 +78,11 @@
               <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
             </svg>
           </div>
-          <span>Prompt<span class="text-gradient">Hub</span></span>
-          <span class="admin-badge">Admin</span>
+          <span>Prompt<span class="text-gradient">Bazar</span> Admin</span>
         </a>
 
         <div class="admin-user-controls">
-          <span class="user-pill" id="adminUserEmail">admin@prompthub.com</span>
+          <span class="user-pill" id="adminUserEmail">admin@promptbazar.com</span>
           
           <!-- Theme Toggle -->
           <button class="btn-theme-toggle" id="btnThemeToggle" aria-label="Toggle theme" title="Toggle Light/Dark Theme">
@@ -137,12 +136,12 @@
             <span class="stat-card-number" id="dashFreePrompts" style="color: #34d399;">0</span>
           </div>
           <div class="stat-card">
-            <span class="stat-card-title">PRO Prompts</span>
+            <span class="stat-card-title">Paid / PRO Prompts</span>
             <span class="stat-card-number" id="dashProPrompts" style="color: #fbbf24;">0</span>
           </div>
           <div class="stat-card">
-            <span class="stat-card-title">Categories</span>
-            <span class="stat-card-number" id="dashCategoriesCount" style="color: #c084fc;">0</span>
+            <span class="stat-card-title">Live Cloud Synced</span>
+            <span class="stat-card-number" style="color: #c084fc;">100%</span>
           </div>
         </div>
 
@@ -153,7 +152,7 @@
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
-            <input type="text" id="adminSearchInput" placeholder="Filter prompts by title, category...">
+            <input type="text" id="adminSearchInput" placeholder="Filter prompts by title or text...">
           </div>
 
           <div class="toolbar-actions">
@@ -182,8 +181,7 @@
               <tr>
                 <th style="width: 70px;">Cover</th>
                 <th>Title</th>
-                <th>Category</th>
-                <th style="width: 110px;">Tier</th>
+                <th style="width: 140px;">Access Tier</th>
                 <th style="width: 140px;">Created</th>
                 <th style="width: 100px; text-align: right;">Actions</th>
               </tr>
@@ -221,34 +219,36 @@
           <input type="text" id="promptTitle" class="form-input" placeholder="e.g. Cinematic Sci-Fi Cityscape Generator" required>
         </div>
 
-        <!-- Category -->
+        <!-- Access Tier Selector (Free vs Paid) -->
         <div class="form-group">
-          <label class="form-label" for="promptCategory">Category / Domain *</label>
-          <input type="text" id="promptCategory" class="form-input" list="categorySuggestions" placeholder="e.g. Image Generation, Copywriting, Coding..." required>
-          <datalist id="categorySuggestions">
-            <option value="Image Generation">
-            <option value="Copywriting">
-            <option value="Coding & Architecture">
-            <option value="Marketing & SEO">
-            <option value="Data & Analytics">
-          </datalist>
-        </div>
+          <label class="form-label">Access Tier * (Free ya Paid select karein)</label>
+          <div class="tier-selector-grid">
+            <label class="tier-option-card card-free active" id="tierOptionFree">
+              <input type="radio" name="promptTierRadio" id="radioTierFree" value="free" checked>
+              <div class="tier-option-icon free-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </div>
+              <div class="tier-option-text">
+                <span class="tier-option-title">🟢 FREE Prompt</span>
+                <span class="tier-option-desc">Har visitor dekh kar 1-click copy kar sake ga</span>
+              </div>
+            </label>
 
-        <!-- Tier Switch (FREE vs PRO) -->
-        <div class="toggle-switch-container">
-          <div class="toggle-switch-label">
-            <span class="toggle-title">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-              </svg>
-              PRO Paid / Locked Prompt
-            </span>
-            <span class="toggle-desc">When enabled, visitors must unlock via WhatsApp. Free items can be copied directly.</span>
+            <label class="tier-option-card card-paid" id="tierOptionPaid">
+              <input type="radio" name="promptTierRadio" id="radioTierPaid" value="paid">
+              <div class="tier-option-icon paid-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+              </div>
+              <div class="tier-option-text">
+                <span class="tier-option-title">👑 PAID / PRO Prompt</span>
+                <span class="tier-option-desc">Locked hoga; WhatsApp par rabta kar ke unlock hoga</span>
+              </div>
+            </label>
           </div>
-          <label class="switch">
-            <input type="checkbox" id="promptIsPaid">
-            <span class="slider"></span>
-          </label>
         </div>
 
         <!-- Multi-Image Upload Dropzone -->

@@ -17,8 +17,8 @@ const CONFIG = {
   WHATSAPP_LINK: 'https://wa.me/923334761239',
 
   // Site branding
-  SITE_NAME: 'PromptHub',
-  SITE_TAGLINE: 'Master AI Prompt Library & Engineering Vault',
+  SITE_NAME: 'PromptBazar',
+  SITE_TAGLINE: 'Curated AI Master Prompt Bazar & Engineering Vault',
 
   // Built-in seed prompts displayed immediately on first load or fallback
   SEED_PROMPTS: [

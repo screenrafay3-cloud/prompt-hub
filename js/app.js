@@ -43,7 +43,8 @@
 
   // Stats Elements
   const statTotalPrompts = document.getElementById('statTotalPrompts');
-  const statCategoriesCount = document.getElementById('statCategoriesCount');
+  const statFreePrompts = document.getElementById('statFreePrompts');
+  const statPaidPrompts = document.getElementById('statPaidPrompts');
 
   // Modal Elements
   const detailModal = document.getElementById('detailModal');
@@ -91,7 +92,6 @@
     if (Array.isArray(cfg.SEED_PROMPTS) && cfg.SEED_PROMPTS.length > 0) {
       state.prompts = [...cfg.SEED_PROMPTS];
       updateStats();
-      buildCategoryChips();
       applyFilters();
     }
 
@@ -126,67 +126,23 @@
         state.prompts = getConfig().SEED_PROMPTS || [];
       }
       updateStats();
-      buildCategoryChips();
       applyFilters();
     } catch (err) {
       console.error('Failed to load prompts from database, using seed data:', err);
       state.prompts = getConfig().SEED_PROMPTS || [];
       updateStats();
-      buildCategoryChips();
       applyFilters();
     }
   }
 
   function updateStats() {
-    if (statTotalPrompts) {
-      statTotalPrompts.textContent = state.prompts.length;
-    }
-    if (statCategoriesCount) {
-      const uniqueCategories = new Set(state.prompts.map((p) => p.category?.trim()).filter(Boolean));
-      statCategoriesCount.textContent = uniqueCategories.size || 1;
-    }
-  }
+    const total = state.prompts.length;
+    const free = state.prompts.filter((p) => !p.is_paid).length;
+    const paid = state.prompts.filter((p) => p.is_paid).length;
 
-  function buildCategoryChips() {
-    if (!categoryChips) return;
-
-    // Calculate counts per category
-    const counts = { all: state.prompts.length };
-    state.prompts.forEach((p) => {
-      const cat = (p.category || 'General').trim();
-      counts[cat] = (counts[cat] || 0) + 1;
-    });
-
-    const categories = Object.keys(counts).filter((c) => c !== 'all').sort();
-
-    let html = `
-      <button class="chip-btn ${state.selectedCategory === 'all' ? 'active' : ''}" data-category="all">
-        <span>All Categories</span>
-        <span class="chip-count">${counts.all}</span>
-      </button>
-    `;
-
-    categories.forEach((cat) => {
-      const isActive = state.selectedCategory.toLowerCase() === cat.toLowerCase();
-      html += `
-        <button class="chip-btn ${isActive ? 'active' : ''}" data-category="${escapeHtml(cat)}">
-          <span>${escapeHtml(cat)}</span>
-          <span class="chip-count">${counts[cat]}</span>
-        </button>
-      `;
-    });
-
-    categoryChips.innerHTML = html;
-
-    // Add click listeners to newly created chips
-    categoryChips.querySelectorAll('.chip-btn').forEach((chip) => {
-      chip.addEventListener('click', () => {
-        categoryChips.querySelectorAll('.chip-btn').forEach((c) => c.classList.remove('active'));
-        chip.classList.add('active');
-        state.selectedCategory = chip.dataset.category;
-        applyFilters();
-      });
-    });
+    if (statTotalPrompts) statTotalPrompts.textContent = total;
+    if (statFreePrompts) statFreePrompts.textContent = free;
+    if (statPaidPrompts) statPaidPrompts.textContent = paid;
   }
 
   function applyFilters() {
@@ -197,19 +153,11 @@
       if (state.selectedTier === 'free' && item.is_paid) return false;
       if (state.selectedTier === 'pro' && !item.is_paid) return false;
 
-      // Category filter
-      if (state.selectedCategory !== 'all') {
-        if ((item.category || '').toLowerCase() !== state.selectedCategory.toLowerCase()) {
-          return false;
-        }
-      }
-
       // Search query filter
       if (query) {
         const matchTitle = (item.title || '').toLowerCase().includes(query);
-        const matchCategory = (item.category || '').toLowerCase().includes(query);
         const matchText = (item.prompt_text || '').toLowerCase().includes(query);
-        if (!matchTitle && !matchCategory && !matchText) return false;
+        if (!matchTitle && !matchText) return false;
       }
 
       return true;
@@ -272,10 +220,9 @@
               ${isPro ? `
                 <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                </svg> PRO
+                </svg> PAID
               ` : 'FREE'}
             </span>
-            <span class="badge-category">${escapeHtml(prompt.category || 'General')}</span>
           </div>
 
           ${isPro ? `
@@ -542,13 +489,6 @@
             t.setAttribute('aria-selected', 'false');
           }
         });
-
-        if (categoryChips) {
-          categoryChips.querySelectorAll('.chip-btn').forEach((c, idx) => {
-            if (idx === 0) c.classList.add('active');
-            else c.classList.remove('active');
-          });
-        }
 
         applyFilters();
       });

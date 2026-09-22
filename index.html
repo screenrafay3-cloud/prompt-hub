@@ -4,11 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PromptHub — Curated AI Master Prompt Library</title>
+  <title>PromptBazar — Curated AI Master Prompt Library</title>
   <meta name="description"
     content="Discover elite, production-tested AI prompts for Midjourney, Claude 3.5, ChatGPT, and Stable Diffusion. Copy free master prompts or unlock verified PRO workflows.">
   <meta name="keywords"
-    content="AI Prompts, Midjourney Prompts, ChatGPT Prompts, Claude Prompts, Prompt Engineering, Master Prompts">
+    content="PromptBazar, AI Prompts, Midjourney Prompts, ChatGPT Prompts, Claude Prompts, Prompt Engineering, Master Prompts">
 
   <!-- Favicon SVG -->
   <link rel="icon" type="image/svg+xml"
@@ -35,14 +35,14 @@
   <!-- Sticky Site Header -->
   <header class="site-header" id="siteHeader">
     <div class="container header-inner">
-      <a href="index.html" class="brand-logo" aria-label="PromptHub Home">
+      <a href="index.html" class="brand-logo" aria-label="PromptBazar Home">
         <div class="logo-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
             stroke-linecap="round" stroke-linejoin="round">
             <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
           </svg>
         </div>
-        <span>Prompt<span class="text-gradient">Hub</span></span>
+        <span>Prompt<span class="text-gradient">Bazar</span></span>
         <span class="brand-badge">Vault</span>
       </a>
 
@@ -105,7 +105,7 @@
               points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
             </polygon>
           </svg>
-          <span>Curated THE AI Engineering Library</span>
+          <span>Curated AI Engineering Library</span>
         </div>
 
         <h1 class="hero-title">
@@ -118,23 +118,23 @@
           Copy free templates instantly or unlock elite PRO workflows.
         </p>
 
-        <!-- Stats Bar -->
+        <!-- Stats Bar: Free vs Paid -->
         <div class="hero-stats">
           <div class="stat-item">
             <span class="stat-value" id="statTotalPrompts">6</span>
-            <span class="stat-label">Master Prompts</span>
+            <span class="stat-label">Total Prompts</span>
           </div>
           <div class="stat-item">
-            <span class="stat-value" id="statCategoriesCount">5</span>
-            <span class="stat-label">Domains</span>
+            <span class="stat-value" id="statFreePrompts">4</span>
+            <span class="stat-label">Free Prompts</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value" id="statPaidPrompts">2</span>
+            <span class="stat-label">Paid (PRO)</span>
           </div>
           <div class="stat-item">
             <span class="stat-value">100%</span>
-            <span class="stat-label">Production Tested</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-value">Instant</span>
-            <span class="stat-label">One-Click Copy</span>
+            <span class="stat-label">Tested & Verified</span>
           </div>
         </div>
 
@@ -146,7 +146,7 @@
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
           <input type="text" id="heroSearchInput"
-            placeholder="Search by topic, model, or keywords (e.g. Cyberpunk, Copywriter)..."
+            placeholder="Search prompts by title or keywords (e.g. Cyberpunk, Copywriter)..."
             aria-label="Search prompts">
         </div>
       </div>
@@ -156,23 +156,23 @@
     <section class="catalog-section" id="catalogSection">
       <div class="container">
 
-        <!-- Controls: Filters & Tiers -->
+        <!-- Controls: Filters (All / Free / Paid) -->
         <div class="controls-bar">
           <div class="controls-top">
-            <!-- Tier Segmented Tabs (All / Free / Pro) -->
+            <!-- Tier Segmented Tabs (All / Free / Paid) -->
             <div class="tier-filter-tabs" role="tablist" aria-label="Filter by Tier">
               <button class="tier-tab-btn active" data-tier="all" role="tab" aria-selected="true">
                 <span>All Prompts</span>
               </button>
               <button class="tier-tab-btn" data-tier="free" role="tab" aria-selected="false">
-                <span>Free Only</span>
+                <span>🟢 Free Prompts</span>
               </button>
               <button class="tier-tab-btn pro-tab" data-tier="pro" role="tab" aria-selected="false">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
                   <path
                     d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                 </svg>
-                <span>PRO Vault</span>
+                <span>👑 Paid Prompts</span>
               </button>
             </div>
 
@@ -180,34 +180,6 @@
             <div class="results-meta" id="resultsMeta">
               Showing all 6 prompts
             </div>
-          </div>
-
-          <!-- Category Filter Chips (Auto-generated) -->
-          <div class="category-chips-wrapper" id="categoryChips" role="group" aria-label="Filter by category">
-            <button class="chip-btn active" data-category="all">
-              <span>All Categories</span>
-              <span class="chip-count">6</span>
-            </button>
-            <button class="chip-btn" data-category="Image Generation">
-              <span>Image Generation</span>
-              <span class="chip-count">2</span>
-            </button>
-            <button class="chip-btn" data-category="Copywriting">
-              <span>Copywriting</span>
-              <span class="chip-count">1</span>
-            </button>
-            <button class="chip-btn" data-category="Coding & Architecture">
-              <span>Coding & Architecture</span>
-              <span class="chip-count">1</span>
-            </button>
-            <button class="chip-btn" data-category="Marketing & Growth">
-              <span>Marketing & Growth</span>
-              <span class="chip-count">1</span>
-            </button>
-            <button class="chip-btn" data-category="AI Architecture">
-              <span>AI Architecture</span>
-              <span class="chip-count">1</span>
-            </button>
           </div>
         </div>
 
@@ -221,7 +193,6 @@
                 alt="Cyberpunk Portrait" loading="lazy">
               <div class="card-badges">
                 <span class="badge-tier tier-free">FREE</span>
-                <span class="badge-category">Image Generation</span>
               </div>
             </div>
             <div class="card-body">
@@ -248,7 +219,6 @@
                 alt="SaaS Copywriter" loading="lazy">
               <div class="card-badges">
                 <span class="badge-tier tier-free">FREE</span>
-                <span class="badge-category">Copywriting</span>
               </div>
             </div>
             <div class="card-body">
@@ -281,7 +251,6 @@
                   </svg>
                   PRO
                 </span>
-                <span class="badge-category">Coding & Architecture</span>
               </div>
               <div class="card-lock-overlay">
                 <span class="lock-pill">
@@ -317,7 +286,6 @@
                 alt="Product Photography" loading="lazy">
               <div class="card-badges">
                 <span class="badge-tier tier-free">FREE</span>
-                <span class="badge-category">Image Generation</span>
               </div>
             </div>
             <div class="card-body">
@@ -345,7 +313,6 @@
                 alt="Growth Marketing" loading="lazy">
               <div class="card-badges">
                 <span class="badge-tier tier-free">FREE</span>
-                <span class="badge-category">Marketing & Growth</span>
               </div>
             </div>
             <div class="card-body">
@@ -378,7 +345,6 @@
                   </svg>
                   PRO
                 </span>
-                <span class="badge-category">AI Architecture</span>
               </div>
               <div class="card-lock-overlay">
                 <span class="lock-pill">
@@ -447,7 +413,6 @@
       <div class="modal-header">
         <div class="modal-meta-row">
           <span class="badge-tier" id="modalTierBadge">FREE</span>
-          <span class="badge-category" id="modalCategoryBadge">Image Generation</span>
           <span class="card-date" id="modalDateBadge">Added recently</span>
         </div>
         <h2 class="modal-title" id="modalTitle">Prompt Title</h2>
@@ -535,13 +500,13 @@
               <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
             </svg>
           </div>
-          <span>Prompt<span class="text-gradient">Hub</span></span>
+          <span>Prompt<span class="text-gradient">Bazar</span></span>
         </div>
         <p style="max-width: 500px;">The premier master prompt library for creators, developers, and AI researchers.
           Curated with precision.</p>
       </div>
       <div class="footer-bottom">
-        <span>&copy; <span id="currentYear">2026</span> PromptHub. All rights reserved.</span>
+        <span>&copy; <span id="currentYear">2026</span> PromptBazar. All rights reserved.</span>
         <span>Built with modern web standards & Supabase</span>
       </div>
     </div>

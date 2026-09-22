@@ -69,12 +69,35 @@
   const promptForm = document.getElementById('promptForm');
   const promptEditId = document.getElementById('promptEditId');
   const promptTitle = document.getElementById('promptTitle');
-  const promptCategory = document.getElementById('promptCategory');
-  const promptIsPaid = document.getElementById('promptIsPaid');
+  const radioTierFree = document.getElementById('radioTierFree');
+  const radioTierPaid = document.getElementById('radioTierPaid');
+  const tierOptionFree = document.getElementById('tierOptionFree');
+  const tierOptionPaid = document.getElementById('tierOptionPaid');
   const promptText = document.getElementById('promptText');
   const promptCharCount = document.getElementById('promptCharCount');
   const btnSavePrompt = document.getElementById('btnSavePrompt');
   const savePromptBtnText = document.getElementById('savePromptBtnText');
+
+  function setFormTier(isPaid) {
+    if (radioTierPaid && radioTierFree) {
+      if (isPaid) {
+        radioTierPaid.checked = true;
+        if (tierOptionPaid) tierOptionPaid.classList.add('active');
+        if (tierOptionFree) tierOptionFree.classList.remove('active');
+      } else {
+        radioTierFree.checked = true;
+        if (tierOptionFree) tierOptionFree.classList.add('active');
+        if (tierOptionPaid) tierOptionPaid.classList.remove('active');
+      }
+    }
+  }
+
+  function getFormTier() {
+    if (radioTierPaid) {
+      return radioTierPaid.checked;
+    }
+    return false;
+  }
 
   // Image Uploader Elements
   const uploadDropzone = document.getElementById('uploadDropzone');
@@ -213,12 +236,10 @@
     const total = state.prompts.length;
     const free = state.prompts.filter((p) => !p.is_paid).length;
     const pro = state.prompts.filter((p) => p.is_paid).length;
-    const cats = new Set(state.prompts.map((p) => (p.category || '').trim()).filter(Boolean));
 
     if (dashTotalPrompts) dashTotalPrompts.textContent = total;
     if (dashFreePrompts) dashFreePrompts.textContent = free;
     if (dashProPrompts) dashProPrompts.textContent = pro;
-    if (dashCategoriesCount) dashCategoriesCount.textContent = cats.size;
   }
 
   function applyAdminFilter() {
@@ -264,15 +285,12 @@
           <td>
             <div class="table-title" title="${escapeHtml(p.title)}">${escapeHtml(p.title)}</div>
             <div style="font-size: 0.75rem; color: var(--text-dim); margin-top: 2px;">
-              ${(p.prompt_text || '').substring(0, 45)}...
+              ${(p.prompt_text || '').substring(0, 50)}...
             </div>
           </td>
           <td>
-            <span class="table-cat-badge">${escapeHtml(p.category || 'General')}</span>
-          </td>
-          <td>
             <span class="table-tier-badge ${isPro ? 'tier-pro' : 'tier-free'}">
-              ${isPro ? 'PRO' : 'FREE'}
+              ${isPro ? '👑 PAID' : '🟢 FREE'}
             </span>
           </td>
           <td style="color: var(--text-muted); font-size: 0.82rem;">${dateFormatted}</td>
@@ -344,8 +362,7 @@
     if (prompt) {
       promptEditId.value = prompt.id;
       promptTitle.value = prompt.title || '';
-      promptCategory.value = prompt.category || '';
-      promptIsPaid.checked = Boolean(prompt.is_paid);
+      setFormTier(Boolean(prompt.is_paid));
       promptText.value = prompt.prompt_text || '';
 
       // Load existing image URLs
@@ -357,7 +374,7 @@
     } else {
       promptForm.reset();
       promptEditId.value = '';
-      promptIsPaid.checked = false;
+      setFormTier(false);
     }
 
     updateCharCount();
@@ -435,12 +452,12 @@
     e.preventDefault();
 
     const title = promptTitle.value.trim();
-    const category = promptCategory.value.trim();
+    const is_paid = getFormTier();
+    const category = is_paid ? 'Paid' : 'Free';
     const prompt_text = promptText.value.trim();
-    const is_paid = promptIsPaid.checked;
 
-    if (!title || !category || !prompt_text) {
-      showToast('Please fill in all required fields.', 'info');
+    if (!title || !prompt_text) {
+      showToast('Please fill in prompt title and prompt text.', 'info');
       return;
     }
 
@@ -599,6 +616,13 @@
 
     if (btnClosePromptModal) btnClosePromptModal.addEventListener('click', closePromptModal);
     if (btnCancelPrompt) btnCancelPrompt.addEventListener('click', closePromptModal);
+
+    if (tierOptionFree) {
+      tierOptionFree.addEventListener('click', () => setFormTier(false));
+    }
+    if (tierOptionPaid) {
+      tierOptionPaid.addEventListener('click', () => setFormTier(true));
+    }
 
     if (promptForm) promptForm.addEventListener('submit', handlePromptFormSubmit);
     if (promptText) promptText.addEventListener('input', updateCharCount);
