@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PromptHub — Curated AI Master Prompt Library</title>
+  <meta name="description" content="Discover elite, production-tested AI prompts for Midjourney, Claude 3.5, ChatGPT, and Stable Diffusion. Copy free master prompts or unlock verified PRO workflows.">
+  <meta name="keywords" content="AI Prompts, Midjourney Prompts, ChatGPT Prompts, Claude Prompts, Prompt Engineering, Master Prompts">
+  
+  <!-- Favicon SVG -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23a855f7'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>">
+
+  <!-- Typography & Styles -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Supabase JS CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <!-- Ambient background glow elements -->
+  <div class="ambient-glow" aria-hidden="true"></div>
+
+  <!-- Optional Supabase setup notice banner (displayed if credentials are still placeholder) -->
+  <div id="previewBanner" class="preview-banner" style="display: none;">
+    <span>⚡ <strong>Preview Mode:</strong> Loaded with sample prompts. Connect your Supabase project in <code>js/config.js</code> to enable live cloud syncing.</span>
+    <a href="admin.html" target="_blank">Open Admin Panel &rarr;</a>
+  </div>
+
+  <!-- Sticky Site Header -->
+  <header class="site-header" id="siteHeader">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-logo" aria-label="PromptHub Home">
+        <div class="logo-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+        </div>
+        <span>Prompt<span class="text-gradient">Hub</span></span>
+        <span class="brand-badge">Vault</span>
+      </a>
+
+      <!-- Header Search (Desktop) -->
+      <div class="header-search">
+        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="headerSearchInput" placeholder="Search master prompts..." autocomplete="off" aria-label="Search prompts">
+        <span class="search-shortcut" title="Press / to search">/</span>
+      </div>
+
+      <!-- Header Actions -->
+      <div class="header-actions">
+        <a href="admin.html" class="btn-admin-link" title="Private Admin Dashboard">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          <span>Admin Portal</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Public Content -->
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container">
+        <div class="hero-pill">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+          <span>Curated AI Engineering Library</span>
+        </div>
+
+        <h1 class="hero-title">
+          Master Prompts for <br class="hero-br">
+          <span class="text-gradient">Supercharged AI Outputs</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Handcrafted, production-tested master prompts for Midjourney, ChatGPT, Claude, and Flux.
+          Copy free templates instantly or unlock elite PRO workflows.
+        </p>
+
+        <!-- Stats Bar -->
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-value" id="statTotalPrompts">6</span>
+            <span class="stat-label">Master Prompts</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value" id="statCategoriesCount">5</span>
+            <span class="stat-label">Domains</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">100%</span>
+            <span class="stat-label">Production Tested</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">Instant</span>
+            <span class="stat-label">One-Click Copy</span>
+          </div>
+        </div>
+
+        <!-- Hero Search Bar (Mobile & Quick Access) -->
+        <div class="hero-search-wrapper">
+          <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="heroSearchInput" placeholder="Search by topic, model, or keywords (e.g. Cyberpunk, Copywriter)..." aria-label="Search prompts">
+        </div>
+      </div>
+    </section>
+
+    <!-- Prompts Exploration Section -->
+    <section class="catalog-section" id="catalogSection">
+      <div class="container">
+        
+        <!-- Controls: Filters & Tiers -->
+        <div class="controls-bar">
+          <div class="controls-top">
+            <!-- Tier Segmented Tabs (All / Free / Pro) -->
+            <div class="tier-filter-tabs" role="tablist" aria-label="Filter by Tier">
+              <button class="tier-tab-btn active" data-tier="all" role="tab" aria-selected="true">
+                <span>All Prompts</span>
+              </button>
+              <button class="tier-tab-btn" data-tier="free" role="tab" aria-selected="false">
+                <span>Free Only</span>
+              </button>
+              <button class="tier-tab-btn pro-tab" data-tier="pro" role="tab" aria-selected="false">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+                <span>PRO Vault</span>
+              </button>
+            </div>
+
+            <!-- Results Meta Info -->
+            <div class="results-meta" id="resultsMeta">
+              Showing all 6 prompts
+            </div>
+          </div>
+
+          <!-- Category Filter Chips (Auto-generated) -->
+          <div class="category-chips-wrapper" id="categoryChips" role="group" aria-label="Filter by category">
+            <button class="chip-btn active" data-category="all">
+              <span>All Categories</span>
+              <span class="chip-count">6</span>
+            </button>
+            <button class="chip-btn" data-category="Image Generation">
+              <span>Image Generation</span>
+              <span class="chip-count">2</span>
+            </button>
+            <button class="chip-btn" data-category="Copywriting">
+              <span>Copywriting</span>
+              <span class="chip-count">1</span>
+            </button>
+            <button class="chip-btn" data-category="Coding & Architecture">
+              <span>Coding & Architecture</span>
+              <span class="chip-count">1</span>
+            </button>
+            <button class="chip-btn" data-category="Marketing & Growth">
+              <span>Marketing & Growth</span>
+              <span class="chip-count">1</span>
+            </button>
+            <button class="chip-btn" data-category="AI Architecture">
+              <span>AI Architecture</span>
+              <span class="chip-count">1</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Prompts Grid (Pre-populated for instant display, dynamically managed by app.js) -->
+        <div class="prompts-grid" id="promptsGrid">
+          
+          <!-- Card 1: Free Cyberpunk -->
+          <article class="prompt-card" data-id="00000000-0000-0000-0000-000000000001">
+            <div class="card-media">
+              <img src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=1200&q=80" alt="Cyberpunk Portrait" loading="lazy">
+              <div class="card-badges">
+                <span class="badge-tier tier-free">FREE</span>
+                <span class="badge-category">Image Generation</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">Hyper-Realistic Cyberpunk Street Portrait</h3>
+              <p class="card-snippet">A high-fashion cyberpunk nomad standing in a rain-slicked Neo-Tokyo alleyway, neon signage reflected in wet asphalt, luminescent cyan and magenta ambient lighting...</p>
+              <div class="card-footer">
+                <span class="card-date">Mar 15, 2026</span>
+                <span class="card-cta-label">
+                  View Prompt
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 2: Free SaaS Copywriting -->
+          <article class="prompt-card" data-id="00000000-0000-0000-0000-000000000002">
+            <div class="card-media">
+              <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80" alt="SaaS Copywriter" loading="lazy">
+              <div class="card-badges">
+                <span class="badge-tier tier-free">FREE</span>
+                <span class="badge-category">Copywriting</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">Elite SaaS Landing Page High-Conversion Copywriter</h3>
+              <p class="card-snippet">Act as a world-class Direct Response SaaS Copywriter with 15+ years of experience generating 8-figure ARR increases for B2B tech companies. Proven PAS framework...</p>
+              <div class="card-footer">
+                <span class="card-date">Mar 18, 2026</span>
+                <span class="card-cta-label">
+                  View Prompt
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 3: PRO Architecture Auditor -->
+          <article class="prompt-card card-pro" data-id="00000000-0000-0000-0000-000000000003">
+            <div class="card-media">
+              <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80" alt="Architecture Auditor" loading="lazy">
+              <div class="card-badges">
+                <span class="badge-tier tier-pro">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  PRO
+                </span>
+                <span class="badge-category">Coding & Architecture</span>
+              </div>
+              <div class="card-lock-overlay">
+                <span class="lock-pill">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                  PRO Access Required
+                </span>
+              </div>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">PRO: Autonomous Staff Software Engineer & Architecture Auditor</h3>
+              <p class="card-snippet">[RESTRICTED PRO ACCESS] You are an autonomous Principal Systems Architect and Staff Security Engineer conducting rigorous 5-phase audits for production systems...</p>
+              <div class="card-footer">
+                <span class="card-date">Mar 20, 2026</span>
+                <span class="card-cta-label pro-label">
+                  Unlock PRO
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 4: Free Product Photography -->
+          <article class="prompt-card" data-id="00000000-0000-0000-0000-000000000004">
+            <div class="card-media">
+              <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=1200&q=80" alt="Product Photography" loading="lazy">
+              <div class="card-badges">
+                <span class="badge-tier tier-free">FREE</span>
+                <span class="badge-category">Image Generation</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">Photorealistic Studio Product Photography & Commercial Lighting (Midjourney v6)</h3>
+              <p class="card-snippet">Commercial studio hero shot of a luxury minimalist frosted glass perfume bottle with gold brushed metallic cap, resting on a raw textured obsidian stone slab...</p>
+              <div class="card-footer">
+                <span class="card-date">Mar 21, 2026</span>
+                <span class="card-cta-label">
+                  View Prompt
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 5: Free Viral Growth -->
+          <article class="prompt-card" data-id="00000000-0000-0000-0000-000000000005">
+            <div class="card-media">
+              <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=80" alt="Growth Marketing" loading="lazy">
+              <div class="card-badges">
+                <span class="badge-tier tier-free">FREE</span>
+                <span class="badge-category">Marketing & Growth</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">Full-Funnel Viral Growth Marketing & Hook Blueprint (GPT-4o / Claude 3.5)</h3>
+              <p class="card-snippet">Elite Growth Lead framework with 10 high-tension pattern interrupt hooks, retaining body structure, and 3 frictionless high-converting CTAs...</p>
+              <div class="card-footer">
+                <span class="card-date">Mar 21, 2026</span>
+                <span class="card-cta-label">
+                  View Prompt
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 6: PRO AI Agent Swarm -->
+          <article class="prompt-card card-pro" data-id="00000000-0000-0000-0000-000000000006">
+            <div class="card-media">
+              <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80" alt="Agent Swarm" loading="lazy">
+              <div class="card-badges">
+                <span class="badge-tier tier-pro">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  PRO
+                </span>
+                <span class="badge-category">AI Architecture</span>
+              </div>
+              <div class="card-lock-overlay">
+                <span class="lock-pill">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                  PRO Access Required
+                </span>
+              </div>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">PRO: Autonomous AI Agent Swarm & Production Orchestrator (LangGraph / Multi-Agent)</h3>
+              <p class="card-snippet">[RESTRICTED PRO ACCESS] Multi-agent orchestration topology (Supervisor, Specialists, Critic), typed state graphs, token budget guards, and complete Python LangGraph blueprints...</p>
+              <div class="card-footer">
+                <span class="card-date">Mar 22, 2026</span>
+                <span class="card-cta-label pro-label">
+                  Unlock PRO
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- Empty State (Shown when search/filter has no results) -->
+        <div class="empty-state" id="emptyState" style="display: none;">
+          <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            <line x1="8" y1="11" x2="14" y2="11"></line>
+          </svg>
+          <h3 class="empty-title">No prompts found</h3>
+          <p class="empty-desc">We couldn't find any prompts matching your search filters. Try clearing your search term or switching categories.</p>
+          <button class="chip-btn" id="btnResetFilters" style="margin: 0 auto;">
+            <span>Reset All Filters</span>
+          </button>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Prompt Detail Modal Dialog -->
+  <div class="modal-backdrop" id="detailModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-dialog">
+      <!-- Close Button -->
+      <button class="modal-close-btn" id="modalCloseBtn" aria-label="Close modal">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <div class="modal-meta-row">
+          <span class="badge-tier" id="modalTierBadge">FREE</span>
+          <span class="badge-category" id="modalCategoryBadge">Image Generation</span>
+          <span class="card-date" id="modalDateBadge">Added recently</span>
+        </div>
+        <h2 class="modal-title" id="modalTitle">Prompt Title</h2>
+      </div>
+
+      <!-- Image Gallery -->
+      <div class="modal-gallery" id="modalGallery">
+        <div class="gallery-main">
+          <img id="galleryMainImg" src="" alt="Prompt preview">
+        </div>
+        <div class="gallery-thumbs" id="galleryThumbs">
+          <!-- Thumbnails injected via JS -->
+        </div>
+      </div>
+
+      <!-- Modal Content Body -->
+      <div class="modal-body">
+        <!-- View 1: FREE PROMPT BLOCK (Visible for Free prompts) -->
+        <div class="prompt-code-container" id="freePromptView">
+          <div class="code-header">
+            <div class="code-tag">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="16 18 22 12 16 6"></polyline>
+                <polyline points="8 6 2 12 8 18"></polyline>
+              </svg>
+              <span>Master Prompt Template</span>
+              <span id="promptWordCount" style="color: var(--text-muted); font-size: 0.72rem;">(0 words)</span>
+            </div>
+            <button class="btn-copy" id="btnCopyPrompt" aria-label="Copy prompt text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              <span id="copyBtnText">Copy Prompt</span>
+            </button>
+          </div>
+          <pre class="prompt-text-block"><code id="promptTextContent"></code></pre>
+        </div>
+
+        <!-- View 2: PRO LOCKED SCREEN (Visible for PRO prompts) -->
+        <div class="pro-locked-screen" id="proLockedView" style="display: none;">
+          <div class="lock-big-icon">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+          </div>
+          <h3 class="pro-locked-title">PRO Prompt Vault Item</h3>
+          <p class="pro-locked-desc">
+            This elite prompt is reserved for PRO members. It includes advanced multi-phase chain-of-thought rules, negative constraints, and verified parameter tunings.
+          </p>
+          <div class="pro-blur-preview" id="proBlurPreview">
+            [RESTRICTED HIGH VALUE PROMPT ARCHITECTURE] System level guidelines and chain-of-thought engineering parameters...
+          </div>
+          <div>
+            <a href="#" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-unlock" id="btnWhatsappUnlock">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12.031 2C6.511 2 2.023 6.488 2.023 12.008c0 1.838.498 3.567 1.364 5.064L2 22l5.127-1.344a9.986 9.986 0 004.904 1.288h.004c5.516 0 10.004-4.488 10.004-10.008 0-2.673-1.04-5.186-2.932-7.078A9.94 9.94 0 0012.031 2zm0 18.292c-1.57 0-3.102-.42-4.444-1.217l-.319-.189-3.299.865.881-3.216-.208-.33a8.27 8.27 0 01-1.267-4.197c0-4.57 3.719-8.288 8.29-8.288 2.213 0 4.293.863 5.859 2.428a8.232 8.232 0 012.427 5.86c0 4.57-3.719 8.287-8.289 8.287zm4.542-6.208c-.249-.125-1.472-.726-1.7-.809-.229-.083-.395-.125-.562.125-.166.249-.646.809-.791.975-.146.166-.292.187-.541.062-.249-.125-1.053-.388-2.006-1.238-.741-.661-1.242-1.478-1.388-1.727-.146-.249-.015-.384.11-.508.112-.112.249-.292.374-.437.125-.146.166-.249.25-.416.083-.166.042-.312-.021-.437-.062-.125-.562-1.353-.77-1.853-.203-.487-.41-.42-.562-.428-.146-.008-.312-.01-.479-.01-.166 0-.437.062-.666.312-.229.249-.874.854-.874 2.082 0 1.228.895 2.415 1.02 2.581.125.166 1.761 2.689 4.267 3.771.596.258 1.062.412 1.425.527.599.191 1.144.164 1.575.1.48-.072 1.472-.602 1.68-1.183.208-.582.208-1.082.146-1.183-.063-.104-.229-.166-.479-.291z"/>
+              </svg>
+              <span>Unlock via WhatsApp</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="brand-logo footer-brand">
+          <div class="logo-icon" style="width: 32px; height: 32px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+          </div>
+          <span>Prompt<span class="text-gradient">Hub</span></span>
+        </div>
+        <p style="max-width: 500px;">The premier master prompt library for creators, developers, and AI researchers. Curated with precision.</p>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; <span id="currentYear">2026</span> PromptHub. All rights reserved.</span>
+        <span>Built with modern web standards & Supabase</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Logic (Universal scripts: works on both file:// and http://) -->
+  <script src="js/config.js"></script>
+  <script src="js/supabaseClient.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
