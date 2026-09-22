@@ -497,6 +497,9 @@ body {
   gap: 1.25rem;
   position: relative;
   z-index: 5;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .controls-top {
@@ -505,6 +508,9 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 /* Tier segmented buttons (All / Free / Pro) */
@@ -514,6 +520,7 @@ body {
   padding: 4px;
   border-radius: var(--radius-full);
   border: 1px solid var(--bg-card-border);
+  min-width: 0;
 }
 
 .tier-tab-btn {
@@ -555,6 +562,10 @@ body {
   gap: 0.6rem;
   overflow-x: auto;
   padding-bottom: 0.5rem;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
 }
